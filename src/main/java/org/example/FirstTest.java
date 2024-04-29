@@ -33,13 +33,14 @@ public class FirstTest {
         }
     }
 
+
     @Test
     public void HomePageLoadTest() {
         driver.get("https://www.lexus.com/");
         assertTrue(wait.until(ExpectedConditions.titleContains("Lexus")));
     }
 
-    /*
+
     @Test
     public void SearchFunctionalityTest(){
         driver.get("https://www.lexus.com/");
@@ -56,9 +57,9 @@ public class FirstTest {
         firstResultLink.click();
         assertTrue(wait.until(ExpectedConditions.titleContains("2024 Lexus ES")));
     }
-*/
 
-/*
+
+
     @Test
     public void CarouselFunctionalityTest() {
         driver.get("https://www.lexus.com");
@@ -67,9 +68,9 @@ public class FirstTest {
         WebElement vechicleName = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//*[text()=\"THE ALL-ELECTRIC RZ\"])[2]")));
 
     }
-*/
 
-/*
+
+
     @Test
     public void AnchorFunctionalityTest() {
         driver.get("https://www.lexus.com/search-inventory");
@@ -87,17 +88,19 @@ public class FirstTest {
         assertTrue(driver.findElement(By.xpath("//*[text()=\"RC\"]")).isDisplayed());
 
     }
-    */
+
 
     @Test
     public void addingToFavoritesTest() {
         driver.get("https://www.lexus.com/search-inventory/model/NX?zipcode=90240&dealerDistance%5B%5D=60445");
-        WebElement addToFavoriteButton = driver.findElement(By.xpath("(//*[@class='default dg-inline-save-heart'])[1]"));
-        Actions action = new Actions(driver);
-        action.moveToElement(addToFavoriteButton).perform();
-        JavascriptExecutor executor = (JavascriptExecutor) driver;
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@class='v-popper--has-tooltip']")));
-        executor.executeScript ("arguments[0].click();", addToFavoriteButton);
+        WebElement addToFavoriteButton = driver.findElement(By.xpath("//*[@class='dg-heart-lexus dg-inline-saves-container' and @id='dg-inline-saves-inv-JTJADCAZ8S2015051undefined']"));
+        addToFavoriteButton.click();
+        //Adding thread.sleep in this part is necessary, because it gives time to complete saving action. If you can offer other solution please provide )
+        try {
+            Thread.sleep(3000);
+        }
+        catch(InterruptedException e) {
+        }
         WebElement mySavedCars = driver.findElement(By.xpath("//*[@href='/saves']"));
         mySavedCars.click();
         WebElement vechicleName = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text()='2025 NX 250']")));
