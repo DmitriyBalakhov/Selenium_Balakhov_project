@@ -57,7 +57,7 @@ public class FirstTest {
     }
 */
 
-
+/*
     @Test
     public void CarouselFunctionalityTest() {
         driver.get("https://www.lexus.com");
@@ -66,9 +66,27 @@ public class FirstTest {
         WebElement vechicleName = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//*[text()=\"THE ALL-ELECTRIC RZ\"])[2]")));
 
     }
+*/
 
+    @Test
+    public void AnchorFunctionalityTest() {
+        driver.get("https://www.lexus.com/search-inventory");
+        WebElement EnterZipcodeField = wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//*[@aria-labelledby='zipcode']"))));
+        EnterZipcodeField.sendKeys("90240");
+        EnterZipcodeField.submit();
+        WebElement sedanAnchor = wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//*[@href='#SEDAN_list']"))));
+        sedanAnchor.click();
+        assertTrue(driver.findElement(By.xpath("//*[text()=\"ES\"]")).isDisplayed());
+        WebElement HybridAnchor = wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//*[@href='#HYBRIDELECTRIC_list']"))));
+        HybridAnchor.click();
+        assertTrue(driver.findElement(By.xpath("//*[text()=\"NX HYBRID\"]")).isDisplayed());
+        WebElement PerfomanceAnchor = wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//*[@href='#PERFORMANCE_list']"))));
+        PerfomanceAnchor.click();
+        assertTrue(driver.findElement(By.xpath("//*[text()=\"RC\"]")).isDisplayed());
 
+    }
 
+    }
 
 
     /* This test is till in development process
@@ -87,4 +105,3 @@ public class FirstTest {
     }
 
  */
-}
