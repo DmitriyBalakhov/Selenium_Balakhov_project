@@ -2,6 +2,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.*;
@@ -68,6 +69,7 @@ public class FirstTest {
     }
 */
 
+/*
     @Test
     public void AnchorFunctionalityTest() {
         driver.get("https://www.lexus.com/search-inventory");
@@ -85,23 +87,21 @@ public class FirstTest {
         assertTrue(driver.findElement(By.xpath("//*[text()=\"RC\"]")).isDisplayed());
 
     }
+    */
 
-    }
-
-
-    /* This test is till in development process
     @Test
-    public void SavedCarsTest() {
+    public void addingToFavoritesTest() {
         driver.get("https://www.lexus.com/search-inventory/model/NX?zipcode=90240&dealerDistance%5B%5D=60445");
-        WebElement addToFavoriteButtonIsNotActive = wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("(//*[@class='dg-heart-lexus dg-inline-saves-container'])[1]"))));
-        Actions hover = new Actions(driver);
-        addToFavoriteButtonIsNotActive.click();
-        //hover.moveToElement(addToFavoriteButtonIsNotActive).perform();
-        //WebElement addToFavoriteButtonActive = wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//*[@class='v-popper--has-tooltip']"))));
-        //addToFavoriteButtonActive.click();
+        WebElement addToFavoriteButton = driver.findElement(By.xpath("(//*[@class='default dg-inline-save-heart'])[1]"));
+        Actions action = new Actions(driver);
+        action.moveToElement(addToFavoriteButton).perform();
+        JavascriptExecutor executor = (JavascriptExecutor) driver;
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@class='v-popper--has-tooltip']")));
+        executor.executeScript ("arguments[0].click();", addToFavoriteButton);
         WebElement mySavedCars = driver.findElement(By.xpath("//*[@href='/saves']"));
         mySavedCars.click();
         WebElement vechicleName = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text()='2025 NX 250']")));
-    }
 
- */
+    }
+}
+
