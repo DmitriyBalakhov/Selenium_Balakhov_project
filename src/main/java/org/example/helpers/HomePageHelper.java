@@ -7,7 +7,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static org.example.pages.SearchInventoryPage.ZIP_CODE_FIELD;
 
-public class HomePageHelper {
+public class HomePageHelper{
 
     WebDriver driver;
 

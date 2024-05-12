@@ -6,36 +6,39 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.time.Duration;
 
-public class WebDriverFactory {
+public enum WebDriverFactory {
 
-    private static WebDriver driver;
-
-    private WebDriverFactory() {
-    }
-
-    public static WebDriver getDriver(String browser) {
-        if (driver == null) {
-            synchronized (WebDriver.class) {
-                if (driver == null) {
-                    switch (browser.toLowerCase()){
-                        case "firefox": driver = new FirefoxDriver();
-                        break;
-                        case "chrome": driver = new ChromeDriver();
-                        break;
-                    }
-                }
-            }
+    CHROME{
+        @Override
+        protected WebDriver createDriver(){
+            return new ChromeDriver();
         }
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+    },
+    FIREFOX{
+        @Override
+        protected WebDriver createDriver(){
+            return new FirefoxDriver();
+        }
+    };
+
+    private WebDriver driver;
+
+    public synchronized WebDriver getDriver() {
+
+        if (driver == null) {
+            driver = createDriver();
+            driver.manage().window().maximize();
+            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
+        }
         return driver;
     }
-    public static void closeDriver(){
-        if(driver!=null) {
+
+    public synchronized void closeDriver(){
+        if (driver != null){
             driver.quit();
             driver = null;
         }
     }
+    protected abstract WebDriver createDriver();
+
 }
-
-
