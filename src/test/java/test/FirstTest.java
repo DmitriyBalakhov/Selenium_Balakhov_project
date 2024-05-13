@@ -1,4 +1,5 @@
 package test;
+import org.example.helpers.HomePageHelper;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -15,14 +16,14 @@ public class FirstTest extends BaseTest{
 
     @Test
     public void homePageLoadTest() {
-        driver.get(HOME_PAGE);
+        homePageHelper.openHomePage();
         assertTrue(wait.until(ExpectedConditions.titleContains("Lexus")));
     }
 
 
     @Test
     public void searchFunctionalityTest(){
-        driver.get(HOME_PAGE);
+        homePageHelper.openHomePage();
         WebElement searchIcon=driver.findElement(SEARCH_BUTTON);
         searchIcon.click();
         WebElement searchField=driver.findElement(SEARCH_FIELD);
@@ -38,7 +39,7 @@ public class FirstTest extends BaseTest{
 
     @Test
     public void carouselFunctionalityTest() {
-        driver.get(HOME_PAGE);
+        homePageHelper.openHomePage();
         WebElement nextSlideButton = wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(NEXT_SLIDE_BUTTON)));
         nextSlideButton.click();
         assertTrue(wait.until(ExpectedConditions.textToBe(By.xpath("(//*[text()=\"THE ALL-ELECTRIC RZ\"])[2]"), "THE ALL-ELECTRIC RZ")));
@@ -51,7 +52,7 @@ public class FirstTest extends BaseTest{
 
     @Test
     public void anchorFunctionalityTest() {
-        driver.get(SEARCH_INVENTORY_PAGE);
+        homePageHelper.openSearchInventoryPage();
         homePageHelper.fillZipCodeAndSubmit(wait);
         WebElement sedanAnchor = wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(SEDAN_ANCHOR)));
         sedanAnchor.click();
@@ -67,7 +68,7 @@ public class FirstTest extends BaseTest{
 
     @Test
     public void addingToFavoritesTest() {
-        driver.get(MODEL_NX_PAGE);
+        homePageHelper.openModelNXPage();
         homePageHelper.fillZipCodeAndSubmit(wait);
         WebElement addToFavoriteButton = driver.findElement(By.xpath("//*[@class='dg-heart-lexus dg-inline-saves-container' and @id='dg-inline-saves-inv-JTJADCAZ8S2015051undefined']"));
         addToFavoriteButton.click();
@@ -77,7 +78,6 @@ public class FirstTest extends BaseTest{
         assertTrue(driver.findElement(By.xpath("//*[text()='2025 NX 250']")).isDisplayed());
 
     }
-
 
 }
 
