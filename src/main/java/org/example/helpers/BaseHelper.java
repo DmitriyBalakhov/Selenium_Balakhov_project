@@ -1,6 +1,5 @@
 package org.example.helpers;
 
-import org.example.utils.WebDriverFactory;
 import org.openqa.selenium.WebDriver;
 
 public class BaseHelper {
