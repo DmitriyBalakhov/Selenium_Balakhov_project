@@ -8,7 +8,6 @@ import static org.example.pages.HomePage.*;
 import static org.example.pages.SearchInventoryPage.*;
 
 
-
 public class FirstTest extends BaseTest{
 
 
@@ -74,6 +73,17 @@ public class FirstTest extends BaseTest{
         WebElement mySavedCars = driver.findElement(SAVED_CARS_BUTTON);
         mySavedCars.click();
         assertTrue(driver.findElement(By.xpath("//*[text()='2025 NX 250']")).isDisplayed());
+
+    }
+
+    @Test
+    public void iFrameTest() {
+        homePageHelper.openHomePage();
+        WebElement brochureButton = driver.findElement(By.xpath("//*[text()=\"REQUEST BROCHURE\"]"));
+        action.moveToElement(brochureButton).click().perform();
+        driver.switchTo().frame(driver.findElement(By.xpath("//*[@src='/request-brochure']")));
+        WebElement viewDigitalBrochures = driver.findElement(By.xpath("//*[@aria-label=\"VIEW DIGITAL BROCHURES\"]"));
+        assertTrue(driver.findElement(By.xpath("//*[text()='VIEW DIGITAL BROCHURES']")).isDisplayed());
 
     }
 

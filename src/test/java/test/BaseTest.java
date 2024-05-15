@@ -5,6 +5,7 @@ import org.example.pages.HomePage;
 import org.example.utils.PropertyFactory;
 import org.example.utils.WebDriverFactory;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -22,6 +23,7 @@ public class BaseTest {
 
     WebDriver driver;
     WebDriverWait wait;
+    Actions action;
     private Properties testConfig;
     HomePage homePage;
     HomePageHelper homePageHelper;
@@ -31,8 +33,10 @@ public class BaseTest {
         this.testConfig = PropertyFactory.loadProperties(System.getProperty("user.dir")+"/src/main/resources/test.properties");
         driver = WebDriverFactory.valueOf(testConfig.getProperty("browser")).getDriver();
         wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+        action = new Actions(driver);
         homePage = new HomePage(driver);
         homePageHelper = new HomePageHelper(driver);
+
 
     }
 
