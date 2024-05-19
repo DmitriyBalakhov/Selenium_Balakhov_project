@@ -1,4 +1,5 @@
 package test;
+import io.qameta.allure.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -7,17 +8,20 @@ import static org.testng.Assert.assertTrue;
 import static org.example.pages.HomePage.*;
 import static org.example.pages.SearchInventoryPage.*;
 
-
+@Owner("Dmitriy Balakhov")
+@Epic("Prod test")
 public class FirstTest extends BaseTest{
 
-
+    @Link("Jira-lxs001")
+    @Severity(SeverityLevel.CRITICAL)
     @Test
     public void homePageLoadTest() {
         homePageHelper.openHomePage();
         assertTrue(wait.until(ExpectedConditions.titleContains("Lexus")));
     }
 
-
+    @Severity(SeverityLevel.NORMAL)
+    @Link("Jira-lxs002")
     @Test
     public void searchFunctionalityTest(){
         homePageHelper.openHomePage();
@@ -33,7 +37,8 @@ public class FirstTest extends BaseTest{
 
     }
 
-
+    @Severity(SeverityLevel.NORMAL)
+    @Link("Jira-lxs003")
     @Test
     public void carouselFunctionalityTest() {
         homePageHelper.openHomePage();
@@ -47,7 +52,11 @@ public class FirstTest extends BaseTest{
     }
 
 
-    @Test
+@Severity(SeverityLevel.NORMAL)
+@Link("Jira-lxs004")
+@Flaky
+@Description("This test fails only in allure reports")
+@Test
     public void anchorFunctionalityTest() {
         homePageHelper.openSearchInventoryPage();
         homePageHelper.fillZipCodeAndSubmit(wait);
@@ -63,11 +72,13 @@ public class FirstTest extends BaseTest{
 
     }
 
+    @Severity(SeverityLevel.NORMAL)
+    @Link("Jira-lxs005")
     @Test
     public void addingToFavoritesTest() {
         homePageHelper.openModelNXPage();
         homePageHelper.fillZipCodeAndSubmit(wait);
-        WebElement addToFavoriteButton = driver.findElement(By.xpath("//*[@class='dg-heart-lexus dg-inline-saves-container' and @id='dg-inline-saves-inv-JTJADCAZ8S2015051undefined']"));
+        WebElement addToFavoriteButton = driver.findElement(By.xpath("//*[@class='dg-heart-lexus dg-inline-saves-container' and @id='dg-inline-saves-inv-JTJADCAZ3S2015040undefined']"));
         addToFavoriteButton.click();
         assertTrue(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='dg-tooltip-text']"))).isDisplayed());
         WebElement mySavedCars = driver.findElement(SAVED_CARS_BUTTON);
@@ -76,6 +87,8 @@ public class FirstTest extends BaseTest{
 
     }
 
+    @Severity(SeverityLevel.NORMAL)
+    @Link("Jira-lxs006")
     @Test
     public void iFrameTest() {
         homePageHelper.openHomePage();
